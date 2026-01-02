@@ -9,10 +9,6 @@ interface UpdateStatus {
   error: Error | null;
 }
 
-/**
- * Hook to check for and apply OTA updates on app launch
- * Works for both Green and Orange variants independently
- */
 export function useAppUpdates() {
   const [status, setStatus] = useState<UpdateStatus>({
     isChecking: false,
@@ -23,9 +19,9 @@ export function useAppUpdates() {
 
   useEffect(() => {
     async function checkForUpdates() {
-      // Only check in production builds
-      if (__DEV__) {
-        console.log('🔧 Dev mode: Skipping update check');
+      // ✅ The ONLY correct guard
+      if (!Updates.isEnabled) {
+        console.log('🚫 OTA disabled in this environment');
         return;
       }
 
@@ -34,48 +30,44 @@ export function useAppUpdates() {
 
         const update = await Updates.checkForUpdateAsync();
 
-        if (update.isAvailable) {
-          console.log('📦 Update available, downloading...');
-          setStatus((prev) => ({
-            ...prev,
-            isChecking: false,
-            isDownloading: true,
-            isUpdateAvailable: true,
-          }));
-
-          await Updates.fetchUpdateAsync();
-
-          console.log('✅ Update downloaded, reloading...');
-
-          // Notify user before reload (optional, can be removed for silent updates)
-          if (Platform.OS === 'ios' || Platform.OS === 'android') {
-            Alert.alert(
-              'Update Available',
-              'A new version has been downloaded. The app will reload now.',
-              [
-                {
-                  text: 'OK',
-                  onPress: async () => {
-                    await Updates.reloadAsync();
-                  },
-                },
-              ],
-              { cancelable: false }
-            );
-          } else {
-            await Updates.reloadAsync();
-          }
-        } else {
+        if (!update.isAvailable) {
           console.log('✓ App is up to date');
           setStatus((prev) => ({ ...prev, isChecking: false }));
+          return;
         }
-      } catch (error) {
-        console.error('❌ Error checking for updates:', error);
+
+        console.log('📦 Update available');
+        setStatus((prev) => ({
+          ...prev,
+          isChecking: false,
+          isDownloading: true,
+          isUpdateAvailable: true,
+        }));
+
+        await Updates.fetchUpdateAsync();
+
+        const reload = async () => {
+          await Updates.reloadAsync();
+        };
+
+        // Optional UX
+        if (Platform.OS === 'ios' || Platform.OS === 'android') {
+          Alert.alert(
+            'Update Available',
+            'The app will restart to apply the update.',
+            [{ text: 'OK', onPress: reload }],
+            { cancelable: false }
+          );
+        } else {
+          await reload();
+        }
+      } catch (e) {
+        // ⚠️ This is NORMAL sometimes — not an error state
+        console.log('ℹ️ OTA check skipped:', e?.message);
         setStatus((prev) => ({
           ...prev,
           isChecking: false,
           isDownloading: false,
-          error: error as Error,
         }));
       }
     }

@@ -1,19 +1,18 @@
+import { WeatherSkeleton } from '@/components/ui/Skeleton';
+import { WeatherCard } from '@/components/weather/WeatherCard';
+import { useAuth } from '@/context/AuthContext';
+import { weatherService } from '@/services/weatherService';
+import { Ionicons } from '@expo/vector-icons';
+import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
   RefreshControl,
   ScrollView,
+  Text,
+  TextInput,
   TouchableOpacity,
-  ActivityIndicator,
+  View
 } from 'react-native';
-import { useQuery } from '@tanstack/react-query';
-import { Ionicons } from '@expo/vector-icons';
-import { weatherService } from '@/services/weatherService';
-import { WeatherCard } from '@/components/weather/WeatherCard';
-import { WeatherSkeleton } from '@/components/ui/Skeleton';
-import { useAuth } from '@/context/AuthContext';
 
 const DEFAULT_CITY = 'London';
 
@@ -21,6 +20,7 @@ export default function WeatherScreen() {
   const [city, setCity] = useState(DEFAULT_CITY);
   const [searchInput, setSearchInput] = useState('');
   const { logout } = useAuth();
+  // const { checkForUpdate, isChecking } = useManualUpdate();
 
   const { data, isLoading, error, refetch, isRefetching } = useQuery({
     queryKey: ['weather', city],
@@ -41,6 +41,18 @@ export default function WeatherScreen() {
   return (
     <View className="flex-1 bg-gray-50">
       <View className="bg-white px-4 py-3 shadow-sm">
+        {/* <View className="flex-row items-center justify-between mb-2">
+          <TouchableOpacity
+            onPress={checkForUpdate}
+            disabled={isChecking}
+            className="flex-row items-center bg-blue-500 px-3 py-2 rounded-lg"
+          >
+            <Ionicons name="cloud-download-outline" size={18} color="white" />
+            <Text className="text-white ml-1 text-sm font-medium">
+              {isChecking ? 'Checking...' : 'Check Updates'}
+            </Text>
+          </TouchableOpacity>
+        </View> */}
         <View className="flex-row items-center">
           <View className="flex-1 flex-row items-center bg-gray-100 rounded-lg px-3 py-2">
             <Ionicons name="search-outline" size={20} color="#9CA3AF" />

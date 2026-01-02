@@ -13,6 +13,7 @@ const VARIANTS = {
     adaptiveIcon: './assets/images/green/adaptive-icon.png',
     splash: './assets/images/green/splash-icon.png',
     backgroundColor: '#ffffff',
+    channel: 'green',
   },
   orange: {
     name: 'WeatherMovies Orange',
@@ -23,6 +24,7 @@ const VARIANTS = {
     adaptiveIcon: './assets/images/orange/adaptive-icon.png',
     splash: './assets/images/orange/splash-icon.png',
     backgroundColor: '#ffffff',
+    channel: 'orange',
   },
 };
 
@@ -52,13 +54,14 @@ module.exports = {
     name: config.name,
     slug: 'my-weather-movies',
     version: '1.0.0',
-    runtimeVersion: {
-      policy: 'appVersion',
-    },
+    runtimeVersion: '1.0.0',
     updates: {
       url: 'https://u.expo.dev/6e4d6821-b4d5-4939-ba41-3e8f469bf356',
       checkAutomatically: 'ON_LOAD',
       fallbackToCacheTimeout: 0,
+      requestHeaders: {
+        'expo-channel-name': config.channel,
+      },
     },
     orientation: 'portrait',
     icon: config.icon,
