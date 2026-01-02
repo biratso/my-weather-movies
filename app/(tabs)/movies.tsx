@@ -1,20 +1,20 @@
-import React, { useState, useCallback } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  RefreshControl,
-  TouchableOpacity,
-  Modal,
-  ScrollView,
-  Image,
-} from 'react-native';
-import { useQuery } from '@tanstack/react-query';
-import { Ionicons } from '@expo/vector-icons';
-import { movieService, Movie, MovieDetails } from '@/services/movieService';
 import { MovieCard } from '@/components/movies/MovieCard';
 import { MovieSkeleton } from '@/components/ui/Skeleton';
+import { movieService } from '@/services/movieService';
+import { Ionicons } from '@expo/vector-icons';
+import { useQuery } from '@tanstack/react-query';
+import React, { useCallback, useState } from 'react';
+import {
+  FlatList,
+  Image,
+  Modal,
+  RefreshControl,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 export default function MoviesScreen() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -67,6 +67,7 @@ export default function MoviesScreen() {
         animationType="slide"
         presentationStyle="pageSheet"
         onRequestClose={() => setSelectedMovie(null)}
+        style={{paddingTop: 20}}
       >
         <View className="flex-1 bg-white">
           <View className="bg-white px-4 py-3 shadow-sm flex-row items-center">

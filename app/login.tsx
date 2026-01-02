@@ -1,18 +1,18 @@
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { useAuth } from '@/context/AuthContext';
+import { useTheme } from '@/context/ThemeContext';
+import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Alert,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useAuth } from '@/context/AuthContext';
-import { useTheme } from '@/context/ThemeContext';
-import { Input } from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -74,11 +74,20 @@ export default function LoginScreen() {
         keyboardShouldPersistTaps="handled"
       >
         <View className="items-center mb-12">
-          <View
-            className="w-24 h-24 rounded-full items-center justify-center mb-4"
-            style={{ backgroundColor: primaryColor }}
-          >
-            <Ionicons name="cloud-outline" size={48} color="white" />
+          <View className="flex-row items-center gap-4">
+            <View
+              className="w-24 h-24 rounded-full items-center justify-center mb-4"
+              style={{ backgroundColor: primaryColor }}
+            >
+              <Ionicons name="cloud-outline" size={48} color="white" />
+            </View>
+            <Text className='text-3xl'>+</Text>
+            <View
+              className="w-24 h-24 rounded-full items-center justify-center mb-4"
+              style={{ backgroundColor: primaryColor }}
+            >
+              <Ionicons name="film-outline" size={48} color="white" />
+            </View>
           </View>
           <Text className="text-3xl font-bold text-gray-800">{appName}</Text>
           <Text className="text-gray-600 mt-2">Welcome back! Please login</Text>
@@ -124,9 +133,8 @@ export default function LoginScreen() {
             activeOpacity={0.7}
           >
             <View
-              className={`w-6 h-6 rounded border-2 items-center justify-center mr-2 ${
-                rememberMe ? 'bg-blue-600 border-blue-600' : 'border-gray-300'
-              }`}
+              className={`w-6 h-6 rounded border-2 items-center justify-center mr-2 ${rememberMe ? 'bg-blue-600 border-blue-600' : 'border-gray-300'
+                }`}
             >
               {rememberMe && <Ionicons name="checkmark" size={18} color="white" />}
             </View>

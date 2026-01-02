@@ -1,6 +1,7 @@
-import { Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/context/ThemeContext';
+import { Ionicons } from '@expo/vector-icons';
+import { Tabs } from 'expo-router';
+import React from 'react';
 
 export default function TabsLayout() {
   const { primaryColor } = useTheme();
@@ -12,7 +13,7 @@ export default function TabsLayout() {
         tabBarInactiveTintColor: '#9CA3AF',
         headerShown: true,
         tabBarStyle: {
-          height: 60,
+          height: 80,
           paddingBottom: 8,
           paddingTop: 8,
         },

@@ -1,0 +1,43 @@
+{
+  "cli": {
+    "version": ">= 5.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "green": {
+      "android": {
+        "buildType": "apk",
+        "env": {
+          "APP_VARIANT": "green"
+        }
+      },
+      "ios": {
+        "buildConfiguration": "Release",
+        "env": {
+          "APP_VARIANT": "green"
+        }
+      },
+      "channel": "green",
+      "distribution": "internal"
+    },
+    "orange": {
+      "android": {
+        "buildType": "apk",
+        "env": {
+          "APP_VARIANT": "orange"
+        }
+      },
+      "ios": {
+        "buildConfiguration": "Release",
+        "env": {
+          "APP_VARIANT": "orange"
+        }
+      },
+      "channel": "orange",
+      "distribution": "internal"
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
