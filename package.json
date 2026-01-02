@@ -4,13 +4,16 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
+    "dev": "node scripts/dev.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build:android:green": "eas build --platform android --profile green",
     "build:android:orange": "eas build --platform android --profile orange",
     "build:ios:green": "eas build --platform ios --profile green",
-    "build:ios:orange": "eas build --platform ios --profile orange"
+    "build:ios:orange": "eas build --platform ios --profile orange",
+    "update:green": "APP_VARIANT=green eas update --branch green --message",
+    "update:orange": "APP_VARIANT=orange eas update --branch orange --message"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

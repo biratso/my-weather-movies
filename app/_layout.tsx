@@ -1,8 +1,8 @@
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { ThemeProvider } from '@/context/ThemeContext';
+import { useAppUpdates } from '@/hooks/useAppUpdates';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Slot, useRouter, useSegments } from 'expo-router';
-import * as Updates from 'expo-updates';
 import React, { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import '../global.css';
@@ -21,6 +21,9 @@ function RootLayoutNav() {
   const segments = useSegments();
   const router = useRouter();
 
+  // Check for OTA updates on app launch
+  useAppUpdates();
+
   useEffect(() => {
     if (isLoading) return;
 
@@ -32,25 +35,6 @@ function RootLayoutNav() {
       router.replace('/(tabs)');
     }
   }, [user, isLoading, segments]);
-
-  // Check for updates on mount
-  useEffect(() => {
-    async function checkForUpdates() {
-      try {
-        if (!__DEV__) {
-          const update = await Updates.checkForUpdateAsync();
-          if (update.isAvailable) {
-            await Updates.fetchUpdateAsync();
-            await Updates.reloadAsync();
-          }
-        }
-      } catch (error) {
-        console.error('Error checking for updates:', error);
-      }
-    }
-
-    checkForUpdates();
-  }, []);
 
   return <Slot />;
 }
