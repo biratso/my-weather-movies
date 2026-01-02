@@ -1,3 +1,5 @@
+import Constants from 'expo-constants';
+
 // API Configuration
 export const API_CONFIG = {
   WEATHER_API_KEY: 'facbc64bcbe69bca607332a1b1e51a40',
@@ -10,7 +12,8 @@ export const API_CONFIG = {
 
 // App Variant Configuration
 export const getAppVariant = () => {
-  const variant = process.env.APP_VARIANT || 'green';
+  // Read variant from app config (set during build)
+  const variant = Constants.expoConfig?.extra?.variant || 'green';
   return variant as 'green' | 'orange';
 };
 

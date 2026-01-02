@@ -17,8 +17,12 @@ npm install
 ```bash
 npm start
 
-npm run build:android:green
-npm run build:android:orange
+npm run dev green
+
+# Build any variant, any platform
+npm run build android -- --profile green
+npm run build ios -- --profile orange
+npm run build all -- --profile green
 
 # Publish update to Green variant
 npm run update:green "Fixed login bug"

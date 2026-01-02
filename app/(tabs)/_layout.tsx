@@ -5,6 +5,7 @@ import React from 'react';
 
 export default function TabsLayout() {
   const { primaryColor } = useTheme();
+  console.log("primaryColor", primaryColor)
 
   return (
     <Tabs

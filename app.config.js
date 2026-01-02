@@ -26,12 +26,23 @@ const VARIANTS = {
   },
 };
 
-// Get variant from environment variable (set by EAS Build)
-const variant = process.env.APP_VARIANT || 'green';
+// Get variant from environment variable or EAS build profile
+// EAS_BUILD_PROFILE is available during EAS builds
+const variant = process.env.APP_VARIANT || process.env.EAS_BUILD_PROFILE || 'green';
 const config = VARIANTS[variant];
 
+// Debug logging
+console.log('=================================');
+console.log('🔍 Build Environment:');
+console.log('  APP_VARIANT:', process.env.APP_VARIANT);
+console.log('  EAS_BUILD_PROFILE:', process.env.EAS_BUILD_PROFILE);
+console.log('  Selected variant:', variant);
+console.log('  Config name:', config?.name);
+console.log('  Bundle ID:', config?.bundleId);
+console.log('=================================');
+
 if (!config) {
-  throw new Error(`Unknown variant: ${variant}. Use 'green' or 'orange'.`);
+  throw new Error(`Unknown variant: ${variant}. Available: ${Object.keys(VARIANTS).join(', ')}`);
 }
 
 console.log(`📱 Building ${config.name} (${config.bundleId})`);

@@ -8,10 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:android:green": "eas build --platform android --profile green",
-    "build:android:orange": "eas build --platform android --profile orange",
-    "build:ios:green": "eas build --platform ios --profile green",
-    "build:ios:orange": "eas build --platform ios --profile orange",
+    "build:green": "APP_VARIANT=green eas build --profile green --platform",
+    "build:orange": "APP_VARIANT=orange eas build --profile orange --platform",
     "update:green": "APP_VARIANT=green eas update --branch green --message",
     "update:orange": "APP_VARIANT=orange eas update --branch orange --message"
   },

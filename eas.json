@@ -9,12 +9,18 @@
         "buildType": "apk",
         "env": {
           "APP_VARIANT": "green"
+        },
+        "cache": {
+          "disabled": true
         }
       },
       "ios": {
         "buildConfiguration": "Release",
         "env": {
           "APP_VARIANT": "green"
+        },
+        "cache": {
+          "disabled": true
         }
       },
       "channel": "green",
@@ -25,12 +31,18 @@
         "buildType": "apk",
         "env": {
           "APP_VARIANT": "orange"
+        },
+        "cache": {
+          "disabled": true
         }
       },
       "ios": {
         "buildConfiguration": "Release",
         "env": {
           "APP_VARIANT": "orange"
+        },
+        "cache": {
+          "disabled": true
         }
       },
       "channel": "orange",
